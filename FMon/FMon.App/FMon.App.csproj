@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8FC2F787-B743-4F1F-931B-BAB626A7F0A0}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2BD6D85C-FFEC-437A-8C9F-9A82CAAA2815}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FMon.UI</RootNamespace>
-    <AssemblyName>FMon.UI</AssemblyName>
+    <RootNamespace>FMon.App</RootNamespace>
+    <AssemblyName>FMon.App</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -18,6 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -54,14 +54,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <ApplicationIcon>FMon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\FMon.ico</ApplicationIcon>
+    <StartupObject>FMon.App.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -77,51 +75,7 @@
     <Compile Include="..\FMon.AssemblyInfo\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Controls\FMonAboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\FMonAboutForm.Designer.cs">
-      <DependentUpon>FMonAboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FMonFileSystemWatcher.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\FMonFileSystemWatcher.Designer.cs">
-      <DependentUpon>FMonFileSystemWatcher.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FMonGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FMonGridView.Designer.cs">
-      <DependentUpon>FMonGridView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FMonMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\FMonMainForm.Designer.cs">
-      <DependentUpon>FMonMainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FMonOptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\FMonOptionsForm.Designer.cs">
-      <DependentUpon>FMonOptionsForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Controls\FMonAboutForm.resx">
-      <DependentUpon>FMonAboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FMonFileSystemWatcher.resx">
-      <DependentUpon>FMonFileSystemWatcher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FMonGridView.resx">
-      <DependentUpon>FMonGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FMonMainForm.resx">
-      <DependentUpon>FMonMainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FMonOptionsForm.resx">
-      <DependentUpon>FMonOptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Program.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -132,6 +86,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,6 +96,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FMon.UI\FMon.UI.csproj">
+      <Project>{8FC2F787-B743-4F1F-931B-BAB626A7F0A0}</Project>
+      <Name>FMon.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -165,34 +126,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FMon.Utilities\FMon.Utilities.csproj">
-      <Project>{9B867517-BB20-4B6D-9DC1-6496A17A8800}</Project>
-      <Name>FMon.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\FMon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pause.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\disk.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\folder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\eject.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\refresh.png" />
+    <Content Include="FMon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
