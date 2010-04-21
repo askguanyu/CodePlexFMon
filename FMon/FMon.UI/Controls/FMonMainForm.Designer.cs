@@ -61,7 +61,12 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fmonNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.fmonNotifyMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitTrayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.filePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.mainFornToolStrip = new System.Windows.Forms.ToolStrip();
             this.openButton = new System.Windows.Forms.ToolStripButton();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
@@ -70,9 +75,8 @@
             this.stopButton = new System.Windows.Forms.ToolStripButton();
             this.clearButton = new System.Windows.Forms.ToolStripButton();
             this.mainFormPanel = new System.Windows.Forms.Panel();
-            this.filePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.mainFormMenu.SuspendLayout();
+            this.fmonNotifyMenu.SuspendLayout();
             this.mainFormStatusStrip.SuspendLayout();
             this.mainFornToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -317,10 +321,37 @@
             // 
             // fmonNotifyIcon
             // 
+            this.fmonNotifyIcon.ContextMenuStrip = this.fmonNotifyMenu;
             this.fmonNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("fmonNotifyIcon.Icon")));
             this.fmonNotifyIcon.Text = "FMon";
             this.fmonNotifyIcon.Visible = true;
             this.fmonNotifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OnFMonNotifyIconMouseDoubleClick);
+            // 
+            // fmonNotifyMenu
+            // 
+            this.fmonNotifyMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTrayMenuItem,
+            this.exitTrayMenuItem});
+            this.fmonNotifyMenu.Name = "fmonNotifyMenu";
+            this.fmonNotifyMenu.Size = new System.Drawing.Size(153, 70);
+            // 
+            // showTrayMenuItem
+            // 
+            this.showTrayMenuItem.Image = global::FMon.UI.Properties.Resources.magnifyingglass;
+            this.showTrayMenuItem.Name = "showTrayMenuItem";
+            this.showTrayMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showTrayMenuItem.Text = "Show";
+            this.showTrayMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.showTrayMenuItem.Click += new System.EventHandler(this.OnFMonNotifyIconMouseDoubleClick);
+            // 
+            // exitTrayMenuItem
+            // 
+            this.exitTrayMenuItem.Image = global::FMon.UI.Properties.Resources.preferences;
+            this.exitTrayMenuItem.Name = "exitTrayMenuItem";
+            this.exitTrayMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitTrayMenuItem.Text = "Exit";
+            this.exitTrayMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.exitTrayMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
             // 
             // mainFormStatusStrip
             // 
@@ -333,6 +364,22 @@
             this.mainFormStatusStrip.Size = new System.Drawing.Size(624, 22);
             this.mainFormStatusStrip.TabIndex = 1;
             this.mainFormStatusStrip.Text = "statusStrip";
+            // 
+            // filePathStatusLabel
+            // 
+            this.filePathStatusLabel.Name = "filePathStatusLabel";
+            this.filePathStatusLabel.Size = new System.Drawing.Size(81, 17);
+            this.filePathStatusLabel.Text = "Select a folder";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripProgressBar.MarqueeAnimationSpeed = 0;
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.RightToLeftLayout = true;
+            this.toolStripProgressBar.Size = new System.Drawing.Size(32, 16);
+            this.toolStripProgressBar.Step = 1;
+            this.toolStripProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             // 
             // mainFornToolStrip
             // 
@@ -412,22 +459,6 @@
             this.mainFormPanel.Size = new System.Drawing.Size(624, 371);
             this.mainFormPanel.TabIndex = 3;
             // 
-            // filePathStatusLabel
-            // 
-            this.filePathStatusLabel.Name = "filePathStatusLabel";
-            this.filePathStatusLabel.Size = new System.Drawing.Size(81, 17);
-            this.filePathStatusLabel.Text = "Select a folder";
-            // 
-            // toolStripProgressBar
-            // 
-            this.toolStripProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripProgressBar.MarqueeAnimationSpeed = 0;
-            this.toolStripProgressBar.Name = "toolStripProgressBar";
-            this.toolStripProgressBar.RightToLeftLayout = true;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(32, 16);
-            this.toolStripProgressBar.Step = 1;
-            this.toolStripProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            // 
             // FMonMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,6 +475,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFMonMainFormClosing);
             this.mainFormMenu.ResumeLayout(false);
             this.mainFormMenu.PerformLayout();
+            this.fmonNotifyMenu.ResumeLayout(false);
             this.mainFormStatusStrip.ResumeLayout(false);
             this.mainFormStatusStrip.PerformLayout();
             this.mainFornToolStrip.ResumeLayout(false);
@@ -497,6 +529,9 @@
         private System.Windows.Forms.ToolStripButton clearButton;
         private System.Windows.Forms.ToolStripStatusLabel filePathStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.ContextMenuStrip fmonNotifyMenu;
+        private System.Windows.Forms.ToolStripMenuItem showTrayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitTrayMenuItem;
     }
 }
 

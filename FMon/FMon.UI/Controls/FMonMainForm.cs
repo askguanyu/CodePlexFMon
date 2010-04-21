@@ -131,7 +131,7 @@ namespace FMon.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnFMonNotifyIconMouseDoubleClick(object sender, MouseEventArgs e)
+        private void OnFMonNotifyIconMouseDoubleClick(object sender, EventArgs e)
         {
             this.Show();
             this.Activate();
