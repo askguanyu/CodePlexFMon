@@ -6,12 +6,6 @@
 namespace FMon.UI
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
 
     /// <summary>
@@ -85,6 +79,9 @@ namespace FMon.UI
             this.Insert(dataGridView.RowCount.ToString(), action, file, time, string.Empty);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void Clear()
         {
             try
