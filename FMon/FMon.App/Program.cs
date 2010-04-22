@@ -26,8 +26,9 @@ namespace FMon.App
             {
                 Application.Run(new FMonMainForm());
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                ////MessageBox.Show(string.Format("{0} {1}", e.StackTrace, e.Message));
             }
         }
     }

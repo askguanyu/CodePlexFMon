@@ -19,11 +19,16 @@ namespace FMon.UI
         /// </summary>
         private static Dictionary<string, FileSystemWatcher> watcherList = new Dictionary<string, FileSystemWatcher>();
 
+
+        private static Queue<bool> runningState = new Queue<bool>(2);
+
         /// <summary>
         ///
         /// </summary>
         public FMonFileSystemWatcher()
         {
+            FMonFileSystemWatcher.runningState.Enqueue(false);
+            FMonFileSystemWatcher.runningState.Enqueue(false);
         }
 
         /// <summary>
@@ -92,6 +97,7 @@ namespace FMon.UI
                         item.Value.EnableRaisingEvents = true;
                     }
 
+                    FMonFileSystemWatcher.runningState.Enqueue(true);
                     return true;
                 }
             }
@@ -123,6 +129,7 @@ namespace FMon.UI
                         item.Value.Renamed -= this.OnFileSystemWatche;
                     }
 
+                    FMonFileSystemWatcher.runningState.Enqueue(false);
                     return true;
                 }
             }
@@ -143,6 +150,14 @@ namespace FMon.UI
         public int Count()
         {
             return FMonFileSystemWatcher.watcherList.Count;
+        }
+
+        public void Resume()
+        {
+            if (FMonFileSystemWatcher.runningState.Dequeue())
+            {
+                FMonFileSystemWatcher.runningState.Enqueue(this.Start());
+            }
         }
 
         /// <summary>
