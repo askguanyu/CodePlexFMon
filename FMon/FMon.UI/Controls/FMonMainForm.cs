@@ -158,7 +158,7 @@ namespace FMon.UI
         /// <param name="isRunning"></param>
         private void ToolStripVisualChange(bool isRunning)
         {
-            this.startButton.Enabled = !(this.stopButton.Enabled = isRunning);
+            this.startButton.Enabled = this.saveButton.Enabled = !(this.stopButton.Enabled = isRunning);
             this.toolStripProgressBar.MarqueeAnimationSpeed = isRunning ? 100 : 0;
         }
 
@@ -200,6 +200,11 @@ namespace FMon.UI
                     this.FilePath = folderDialog.SelectedPath;
                 }
             }
+        }
+
+        private void OnSaveButtonClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
