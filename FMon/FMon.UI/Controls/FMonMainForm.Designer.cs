@@ -368,8 +368,8 @@
             // filePathStatusLabel
             // 
             this.filePathStatusLabel.Name = "filePathStatusLabel";
-            this.filePathStatusLabel.Size = new System.Drawing.Size(81, 17);
-            this.filePathStatusLabel.Text = "Select a folder";
+            this.filePathStatusLabel.Size = new System.Drawing.Size(13, 17);
+            this.filePathStatusLabel.Text = "  ";
             // 
             // toolStripProgressBar
             // 
@@ -403,7 +403,7 @@
             this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(23, 22);
-            this.openButton.Text = "Open";
+            this.openButton.Text = "Add folder";
             this.openButton.Click += new System.EventHandler(this.OnOpenButtonClick);
             // 
             // saveButton

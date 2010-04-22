@@ -83,6 +83,7 @@
     <Compile Include="Controls\FMonAboutForm.Designer.cs">
       <DependentUpon>FMonAboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FMonFileSystemWatcher.cs" />
     <Compile Include="Controls\FMonGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>

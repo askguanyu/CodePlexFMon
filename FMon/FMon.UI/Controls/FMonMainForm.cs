@@ -6,6 +6,7 @@
 namespace FMon.UI
 {
     using System;
+    using System.IO;
     using System.Windows.Forms;
 
     /// <summary>
@@ -26,7 +27,7 @@ namespace FMon.UI
         /// <summary>
         ///
         /// </summary>
-        private FMonFileSystemWatcher fileWatcher;
+        private FMonFileSystemWatcher fileWatcher = new FMonFileSystemWatcher();
 
         /// <summary>
         ///
@@ -34,6 +35,7 @@ namespace FMon.UI
         public FMonMainForm()
         {
             InitializeComponent();
+            this.fileWatcher = new FMonFileSystemWatcher();
             this.gridView = new FMonGridView();
             this.gridView.Dock = DockStyle.Fill;
             this.mainFormPanel.Controls.Add(gridView);
@@ -51,7 +53,7 @@ namespace FMon.UI
 
             private set
             {
-                this.filePath = value;
+                this.filePath = Path.GetFullPath(value);
                 this.filePathStatusLabel.Text = value;
             }
         }
@@ -61,7 +63,7 @@ namespace FMon.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void aWatcher_FileChanged(object sender, System.IO.FileSystemEventArgs e)
+        private void OnWatcherFileChanged(object sender, System.IO.FileSystemEventArgs e)
         {
             this.Invoke((MethodInvoker)delegate
             {
@@ -134,27 +136,6 @@ namespace FMon.UI
         /// <summary>
         ///
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnStartButtonClick(object sender, EventArgs e)
-        {
-            if (this.fileWatcher == null)
-            {
-                this.fileWatcher = new FMonFileSystemWatcher();
-            }
-
-            this.fileWatcher.FileChanged += new System.IO.FileSystemEventHandler(aWatcher_FileChanged);
-
-            if (!string.IsNullOrEmpty(this.filePath))
-            {
-                this.fileWatcher.Start(this.filePath);
-                this.ToolStripVisualChange(true);
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="isRunning"></param>
         private void ToolStripVisualChange(bool isRunning)
         {
@@ -167,11 +148,25 @@ namespace FMon.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void OnStartButtonClick(object sender, EventArgs e)
+        {
+            this.fileWatcher.FileChanged += this.OnWatcherFileChanged;
+            if (this.fileWatcher.Start())
+            {
+                this.ToolStripVisualChange(true);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnStopButtonClick(object sender, EventArgs e)
         {
-            if (this.fileWatcher != null)
+            this.fileWatcher.FileChanged -= this.OnWatcherFileChanged;
+            if (this.fileWatcher.Stop())
             {
-                this.fileWatcher.Stop();
                 this.ToolStripVisualChange(false);
             }
         }
@@ -197,14 +192,18 @@ namespace FMon.UI
             {
                 if (DialogResult.OK == folderDialog.ShowDialog())
                 {
-                    this.FilePath = folderDialog.SelectedPath;
+                    this.fileWatcher.Add(folderDialog.SelectedPath);
                 }
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
-
         }
     }
 }
