@@ -12,12 +12,24 @@ namespace FMon.UI
     /// </summary>
     public partial class FMonOptionsForm : Form
     {
+        private FMonFileSystemWatcher fileWatcher = new FMonFileSystemWatcher();
+
         /// <summary>
         ///
         /// </summary>
         public FMonOptionsForm()
         {
             InitializeComponent();
+
+            foreach (var item in this.fileWatcher.WatcherList)
+            {
+                folderGridView.Rows.Add(item.Key);
+            }
+        }
+
+        private void OnCancelButtonClick(object sender, System.EventArgs e)
+        {
+            this.Close();
         }
     }
 }

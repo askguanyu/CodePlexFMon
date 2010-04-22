@@ -32,6 +32,14 @@ namespace FMon.UI
         public event FileSystemEventHandler FileChanged;
 
         /// <summary>
+        ///Gets
+        /// </summary>
+        public Dictionary<string, FileSystemWatcher> WatcherList
+        {
+            get { return FMonFileSystemWatcher.watcherList; }
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <param name="filePath"></param>
@@ -42,6 +50,7 @@ namespace FMon.UI
                 FMonFileSystemWatcher.watcherList.Add(Path.GetFullPath(filePath), new FileSystemWatcher(Path.GetFullPath(filePath)));
                 return true;
             }
+
             return false;
         }
 
@@ -127,6 +136,10 @@ namespace FMon.UI
             return false;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public int Count()
         {
             return FMonFileSystemWatcher.watcherList.Count;
