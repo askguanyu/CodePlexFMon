@@ -73,7 +73,7 @@ namespace FMon.UI
         /// <param name="e"></param>
         private void OnOkButtonClick(object sender, System.EventArgs e)
         {
-            this.fileWatcher.Stop();
+            this.fileWatcher.Suspend();
             this.fileWatcher.Clear();
 
             foreach (var item in this.folderListBox.Items)

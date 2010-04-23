@@ -19,16 +19,21 @@ namespace FMon.UI
         /// </summary>
         private static Dictionary<string, FileSystemWatcher> watcherList = new Dictionary<string, FileSystemWatcher>();
 
+        /// <summary>
+        ///
+        /// </summary>
+        private static bool isRunning;
 
-        private static Queue<bool> runningState = new Queue<bool>(2);
+        /// <summary>
+        ///
+        /// </summary>
+        private static bool lastRunning;
 
         /// <summary>
         ///
         /// </summary>
         public FMonFileSystemWatcher()
         {
-            FMonFileSystemWatcher.runningState.Enqueue(false);
-            FMonFileSystemWatcher.runningState.Enqueue(false);
         }
 
         /// <summary>
@@ -97,7 +102,7 @@ namespace FMon.UI
                         item.Value.EnableRaisingEvents = true;
                     }
 
-                    FMonFileSystemWatcher.runningState.Enqueue(true);
+                    FMonFileSystemWatcher.isRunning = true;
                     return true;
                 }
             }
@@ -129,7 +134,7 @@ namespace FMon.UI
                         item.Value.Renamed -= this.OnFileSystemWatche;
                     }
 
-                    FMonFileSystemWatcher.runningState.Enqueue(false);
+                    FMonFileSystemWatcher.isRunning = false;
                     return true;
                 }
             }
@@ -152,12 +157,24 @@ namespace FMon.UI
             return FMonFileSystemWatcher.watcherList.Count;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void Resume()
         {
-            if (FMonFileSystemWatcher.runningState.Dequeue())
+            if (FMonFileSystemWatcher.lastRunning)
             {
-                FMonFileSystemWatcher.runningState.Enqueue(this.Start());
+                this.Start();
             }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Suspend()
+        {
+            FMonFileSystemWatcher.lastRunning = FMonFileSystemWatcher.isRunning;
+            this.Stop();
         }
 
         /// <summary>

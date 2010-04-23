@@ -192,7 +192,9 @@ namespace FMon.UI
             {
                 if (DialogResult.OK == folderDialog.ShowDialog())
                 {
+                    this.fileWatcher.Suspend();
                     this.fileWatcher.Add(folderDialog.SelectedPath);
+                    this.fileWatcher.Resume();
                 }
             }
         }
